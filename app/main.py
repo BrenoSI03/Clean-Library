@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 from werkzeug.exceptions import abort
 
 def get_db_connection():
@@ -16,6 +16,7 @@ def get_book(book_id):
     return book
 
 app = Flask(__name__, template_folder='templates')
+app.config['SECRET_KEY'] = 'grXBaIz0Ag0a7XllLUI3maScR7mbnFZC'
 
 @app.route('/')
 def home():
@@ -28,6 +29,25 @@ def home():
 def book(book_id):
     book = get_book(book_id)
     return render_template('book.html', book=book)
+
+@app.route('/create', methods=('GET', 'POST'))
+def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        author = request.form['author']
+        available = request.form['available']
+
+        if not title:
+            flash('Title is required!')
+        else:
+            connection = get_db_connection()
+            connection.execute('INSERT INTO books (title, author, available) VALUES (?, ?, ?)',
+                               (title, author, available))
+            connection.commit()
+            connection.close()
+            return redirect(url_for('home'))
+
+    return render_template('create.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

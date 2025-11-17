@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Livro{% endblock %}
+
+{% block content %}
+
+<h1>Cadastrar Livro</h1>
+
+<form method="post" class="form">
+
+    <div class="form-group">
+        <label for="title">Título</label>
+        <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Digite o título do livro"
+            class="form-control"
+            value="{{ request.form.get('title', '') }}"
+            required
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="author">Autor</label>
+        <input
+            type="text"
+            name="author"
+            id="author"
+            placeholder="Nome do autor"
+            class="form-control"
+            value="{{ request.form.get('author', '') }}"
+            required
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="available">Disponibilidade</label>
+        <select name="available" id="available" class="form-control">
+            <option value="1" {% if request.form.get('available') == '1' %}selected{% endif %}>Disponível</option>
+            <option value="0" {% if request.form.get('available') == '0' %}selected{% endif %}>Indisponível</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+
+<br>
+<a href="/" class="btn">← Voltar</a>
+
+{% endblock %}
