@@ -191,9 +191,3 @@ pytest --cov=use_cases --cov-report=term
 * SOLID
 
 ---
-
-# 🧑‍💻 **Autores**
-
-Projeto desenvolvido para o Trabalho A2 da disciplina **Arquitetura e Projeto de Software**, seguindo Clean Architecture e boas práticas de engenharia de software.
-
----

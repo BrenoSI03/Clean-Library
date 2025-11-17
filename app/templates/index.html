@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Acervo de Livros
+{% endblock %}
+
+{% block content %}
+
+<nav>
+  <a href="#livros">Livros</a>
+  <a href="#usuarios">Usuários</a>
+  <a href="#emprestimos">Empréstimos</a>
+  <a href="#devolucoes">Devoluções</a>
+</nav>
+<hr>
+
+<!-- ======================= LIVROS ======================= -->
+<section id="livros" class="bloco">
+  
+  <h2>Livros</h2>
+
+  {% for book in books %}
+        <div>
+            <h3>{{ book['title'] }}</h3>
+            <p><strong>Autor:</strong> {{ book['author'] }}</p>
+
+            {% if book['available'] %}
+                <span style="color: green;">Disponível</span>
+            {% else %}
+                <span style="color: red;">Emprestado</span>
+            {% endif %}
+
+            <hr>
+        </div>
+    {% else %}
+        <p>Nenhum livro cadastrado.</p>
+    {% endfor %}
+
+  <h3>Listar / Pesquisar</h3>
+  <form method="get" action="/books" class="form">
+    <label for="query">Busca por título/autor (opcional):</label>
+    <input type="text" id="query" name="query" placeholder="Ex.: Clean Code">
+    <button type="submit">Listar</button>
+  </form>
+
+  <h3>Cadastrar Livro</h3>
+  <form method="post" action="/books" class="form">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="author">Autor:</label>
+    <input type="text" id="author" name="author" required>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+</section>
+
+<hr>
+
+<!-- ======================= USUÁRIOS ======================= -->
+<section id="usuarios" class="bloco">
+
+  <h2>Usuários</h2>
+
+  <h3>Cadastrar Usuário</h3>
+  <form method="post" action="/users" class="form">
+    <label for="user_name">Nome:</label>
+    <input type="text" id="user_name" name="name" required>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+</section>
+
+<hr>
+
+<!-- ======================= EMPRÉSTIMOS ======================= -->
+<section id="emprestimos" class="bloco">
+
+  <h2>Empréstimos</h2>
+
+  <h3>Emprestar Livro</h3>
+  <form method="post" action="/loans" class="form">
+    <label for="loan_book_id">ID do Livro:</label>
+    <input type="number" id="loan_book_id" name="book_id" min="1" required>
+
+    <label for="loan_user_id">ID do Usuário:</label>
+    <input type="number" id="loan_user_id" name="user_id" min="1" required>
+
+    <button type="submit">Emprestar</button>
+  </form>
+
+</section>
+
+<hr>
+
+<!-- ======================= DEVOLUÇÕES ======================= -->
+<section id="devolucoes" class="bloco">
+
+  <h2>Devoluções</h2>
+
+  <h3>Devolver Livro</h3>
+  <form method="post" action="/returns" class="form">
+    <label for="return_book_id">ID do Livro:</label>
+    <input type="number" id="return_book_id" name="book_id" min="1" required>
+    <button type="submit">Devolver</button>
+  </form>
+
+</section>
+
+<hr>
+
+<p>© Biblioteca — Exemplo educacional (Flask + Clean Architecture)</p>
+
+{% endblock %}

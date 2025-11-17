@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ book['title'] }}
+{% endblock %}
+
+{% block content %}
+
+<div class="book-card">
+
+    <h2 class="book-title">{{ book['title'] }}</h2>
+
+    <p class="book-author">
+        <strong>Autor:</strong> {{ book['author'] }}
+    </p>
+
+    <p class="book-status">
+        {% if book['available'] %}
+            <span class="badge badge-success">Disponível</span>
+        {% else %}
+            <span class="badge badge-danger">Emprestado</span>
+        {% endif %}
+    </p>
+
+    <div class="book-actions">
+        <a href="/" class="btn">← Voltar ao catálogo</a>
+    </div>
+
+</div>
+
+{% endblock %}

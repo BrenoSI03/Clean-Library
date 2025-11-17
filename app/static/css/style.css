@@ -1,0 +1,250 @@
+/* Reset and base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+body {
+  background: #f9fafb;
+  line-height: 1.6;
+  padding: 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container */
+.bloco {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+  transition: box-shadow 0.3s ease;
+}
+.bloco:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 700px;
+}
+header h1 {
+  font-weight: 900;
+  font-size: 2.8rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+header nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+header nav a {
+  text-decoration: none;
+  color: #2980b9;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+header nav a:hover,
+header nav a:focus {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+/* Section Titles */
+h2 {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #2980b9;
+  padding-bottom: 0.3rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Forms */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.form label {
+  font-weight: 600;
+  color: #555;
+}
+
+.form input[type="text"],
+.form input[type="number"] {
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  border: 1.8px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+.form input[type="text"]:focus,
+.form input[type="number"]:focus {
+  border-color: #2980b9;
+  outline: none;
+  box-shadow: 0 0 5px #2980b9aa;
+}
+
+.form button {
+  padding: 0.6rem 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  background: #2980b9;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s ease;
+}
+
+.form button:hover,
+.form button:focus {
+  background: #1f6391;
+  outline: none;
+}
+
+/* Separators */
+hr {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  width: 100%;
+  max-width: 700px;
+  margin: 3rem 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: auto;
+  max-width: 700px;
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .bloco {
+    padding: 1rem 1.2rem;
+    max-width: 100%;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  header nav a {
+    font-size: 1rem;
+  }
+}
+
+/* Book Card Container */
+.book-card {
+  background: #fff;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+/* Book Title */
+.book-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Author and Status Text */
+.book-author strong,
+.book-status strong {
+  font-weight: 700;
+  color: #2980b9;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  user-select: none;
+}
+
+.badge-success {
+  background-color: #27ae60;
+}
+
+.badge-danger {
+  background-color: #c0392b;
+}
+
+/* Actions Container */
+.book-actions {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* Back Button */
+.book-actions .btn {
+  background: #2980b9;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+.book-actions .btn:hover,
+.book-actions .btn:focus {
+  background: #1f6391;
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .book-card {
+    margin: 1rem;
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+  .book-title {
+    font-size: 1.6rem;
+  }
+}
