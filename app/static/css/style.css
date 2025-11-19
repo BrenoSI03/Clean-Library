@@ -347,3 +347,180 @@ a.btn:focus {
     padding: 0.35rem 0.7rem;
   }
 }
+
+/* Reuse .form styling from create.html for edit page */
+form {
+  max-width: 400px;
+  margin: 1.5rem auto 2rem auto;
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.form-control {
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #2980b9;
+  outline: none;
+  box-shadow: 0 0 5px #2980b9aa;
+}
+
+/* Button consistent styling */
+.btn-primary {
+  background: #2980b9;
+  color: white;
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #1f6391;
+  outline: none;
+}
+
+/* Book container adjustment inside #livros section */
+#livros > div {
+  background: #fff;
+  max-width: 580px;
+  margin: 1.1rem auto;
+  padding: 1.25rem 1.6rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 1rem;
+  color: #34495e;
+}
+
+/* Book title styling */
+#livros > div h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.15rem;
+}
+
+/* Author and availability info */
+#livros > div p {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+#livros > div span {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Green/red text for status */
+#livros > div span[style*="green"] {
+  color: #27ae60;
+}
+#livros > div span[style*="red"] {
+  color: #c0392b;
+}
+
+/* Inline edit badge styling consistent with badges */
+.badge-warning {
+  background-color: #f39c12;
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.badge-warning:hover,
+.badge-warning:focus {
+  background-color: #d78e0b;
+  outline: none;
+}
+
+/* Align edit link with book info horizontally */
+#livros > div a {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  text-decoration: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  #livros > div {
+    max-width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  #livros > div h3 {
+    font-size: 1.2rem;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+  }
+}
+
+/* Delete button styling consistent with btn-danger */
+.btn-danger {
+  background-color: #c0392b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s ease;
+  margin-top: 0.8rem;
+  align-self: flex-start;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #922b23;
+  outline: none;
+}
+
+/* Smaller delete button variant for possible inline usage */
+.btn-danger.btn-sm {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+}
