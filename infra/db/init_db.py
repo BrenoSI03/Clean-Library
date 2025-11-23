@@ -2,9 +2,9 @@ import sqlite3
 from pathlib import Path
 
 def init_db():
-    schema_path = Path(__file__).parent / "schema.sql"
+    schema_path = "schema.sql"
 
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(Path(__file__).parent / 'database.db')
 
     with open(schema_path, "r") as f:
         connection.executescript(f.read())
