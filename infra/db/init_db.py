@@ -4,7 +4,10 @@ from pathlib import Path
 def init_db():
     schema_path = "schema.sql"
 
-    connection = sqlite3.connect(Path(__file__).parent / 'database.db')
+    db_path = Path(__file__).parent / 'database.db'
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    connection = sqlite3.connect(db_path)
 
     with open(schema_path, "r") as f:
         connection.executescript(f.read())

@@ -30,7 +30,7 @@ Acervo de Livros
                 <span style="color: red;">Emprestado</span>
             {% endif %}
 
-            <a href="{{ url_for('edit', id=book['id']) }}">
+            <a href="{{ url_for('books.edit', book_id=book['id']) }}">
               <span class="badge badge-warning">Edit</span>
             </a>
 

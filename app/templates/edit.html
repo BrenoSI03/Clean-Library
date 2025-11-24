@@ -8,22 +8,19 @@
         <label for="title">Title</label>
         <input type="text" name="title" placeholder="Book title"
                class="form-control"
-               value="{{ request.form['title'] or book['title'] }}">
-        </input>
+               value="{{ request.form.get('title', book['title']) }}">
     </div>
     <div class="form-group">
         <label for="author">Author</label>
         <input type="text" name="author" placeholder="Book author"
                class="form-control"
-               value="{{ request.form['author'] or book['author'] }}">
-        </input>
+               value="{{ request.form.get('author', book['author']) }}">
     </div>
     <div class="form-group">
         <label for="available">Available</label>
         <input type="text" name="available" placeholder="Availability"
                class="form-control"
-               value="{{ request.form['available'] or book['available'] }}">
-        </input>
+               value="{{ request.form.get('available', book['available']) }}">
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -31,7 +28,7 @@
 </form>
 <hr>
 
-<form action="{{ url_for('delete', id=book['id']) }}" method="POST">
+<form action="{{ url_for('books.delete', book_id=book['id']) }}" method="POST">
     <input type="submit" value="Delete Book"
             class="btn btn-danger btn-sm"
             onclick="return confirm('Tem certeza que você deseja deletar esse livro?')">
