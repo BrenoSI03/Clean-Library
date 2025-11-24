@@ -23,3 +23,11 @@ CREATE TABLE IF NOT EXISTS loans (
     FOREIGN KEY(book_id) REFERENCES books(id),
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS loans (
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES books (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);

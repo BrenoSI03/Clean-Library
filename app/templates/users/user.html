@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuário {{ user['name'] }}{% endblock %}
+
+{% block content %}
+<h1>Usuário: {{ user['name'] }}</h1>
+
+<h2>Livros emprestados</h2>
+
+{% if borrowed_books %}
+  <ul>
+    {% for book in borrowed_books %}
+      <li>
+        <strong>{{ book['title'] }}</strong> — {{ book['author'] }}
+        <form action="{{ url_for('users.return_book_route', user_id=user['id'], book_id=book['id']) }}"
+              method="post"
+              style="display:inline;">
+          <button type="submit">Devolver</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Nenhum livro emprestado.</p>
+{% endif %}
+
+<h2>Pegar livro emprestado</h2>
+<form method="post" action="{{ url_for('users.loan_book', user_id=user['id']) }}">
+  <label for="book_id">ID do livro:</label>
+  <input type="number" id="book_id" name="book_id" min="1" required>
+  <button type="submit">Emprestar</button>
+</form>
+
+<br>
+<a href="{{ url_for('users.home') }}">← Voltar para lista de usuários</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Usuário{% endblock %}
+
+{% block content %}
+
+<h1>Editar Usuário</h1>
+
+<form method="POST">
+
+    <div class="form-group">
+        <label for="name">Nome</label>
+        <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            value="{{ request.form.get('name', user.name) }}"
+            required
+        >
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Salvar alterações</button>
+</form>
+
+<br>
+<a href="{{ url_for('users.home') }}">← Voltar</a>
+
+{% endblock %}
