@@ -1,3 +1,5 @@
+---
+
 # 📚 **Biblioteca Clean Architecture — Flask**
 
 Este projeto implementa um **sistema de gerenciamento de biblioteca** utilizando **Python + Flask**, seguindo rigorosamente os princípios da **Clean Architecture**, **SOLID** e com **testes unitários via Pytest**.
@@ -30,7 +32,7 @@ A aplicação foi construída com foco em:
 A estrutura do projeto está organizada nas camadas:
 
 ```
-project/
+clean-library/
 │
 ├── app/                     # Interface (Frameworks & Drivers)
 │   ├── main.py              # Inicialização do Flask + DI
@@ -129,16 +131,18 @@ pip install -r requirements.txt
 
 ### 3️⃣ Inicializar banco de dados (se necessário)
 
-Executa o script que cria as tabelas:
+Executa o script que cria as tabelas na pasta **`infra/db`**:
 
 ```
-python infra/db/database.py
+python infra\db\init_db.py
 ```
 
 ### 4️⃣ Rodar o Flask
 
+Agora, com tudo configurado, rode a aplicação Flask usando:
+
 ```
-python app/main.py
+python -m app.main
 ```
 
 ### 5️⃣ Abrir a aplicação no navegador
@@ -151,11 +155,11 @@ http://127.0.0.1:5000
 
 Rotas disponíveis:
 
-* `GET /books`
-* `POST /books`
-* `POST /users`
-* `POST /loans/<book_id>`
-* `POST /returns/<book_id>`
+* `GET /books` – Listagem de livros
+* `POST /books` – Cadastro de livro
+* `POST /users` – Cadastro de usuário
+* `POST /loans/<book_id>` – Empréstimo de livro
+* `POST /returns/<book_id>` – Devolução de livro
 
 ---
 
