@@ -22,7 +22,22 @@ user_bp = Blueprint("users", __name__, url_prefix="/users")
 @user_bp.route("/", methods=["GET"])
 def home():
     users = list_users(user_repo)
-    return render_template("users/index.html", users=users)
+    loans = []
+    
+    # Listando empréstimos de livros
+    for user in users:
+        borrowed_books = list_books_for_user(loan_repo, user.id)
+        for book in borrowed_books:
+            loans.append({
+                'book_id': book['id'],
+                'title': book['title'],
+                'author': book['author'],
+                'user_name': user.name,
+                'user_id': user.id,
+            })
+
+    return render_template("index.html", users=users, loans=loans)
+
 
 
 # ====== Detalhe do usuário + livros emprestados ======
@@ -31,7 +46,7 @@ def user(user_id):
     u = get_user(user_repo, user_id)
     if u is None:
         flash("Usuário não encontrado")
-        return redirect(url_for("users.home"))
+        return redirect(url_for("home"))
 
     borrowed_books = list_books_for_user(loan_repo, user_id)
     return render_template("users/user.html", user=u, borrowed_books=borrowed_books)
@@ -48,7 +63,7 @@ def create():
         else:
             create_user(user_repo, name)
             flash("Usuário cadastrado com sucesso!")
-            return redirect(url_for("users.home"))
+            return redirect(url_for("home"))
 
     return render_template("users/create.html")
 
@@ -56,10 +71,10 @@ def create():
 # ====== Editar usuário ======
 @user_bp.route("/<int:user_id>/edit", methods=["GET", "POST"])
 def edit(user_id):
-    u = get_user(user_repo, user_id)
-    if u is None:
+    user = get_user(user_repo, user_id)
+    if user is None:
         flash("Usuário não encontrado")
-        return redirect(url_for("users.home"))
+        return redirect(url_for("home"))
 
     if request.method == "POST":
         name = request.form["name"]
@@ -69,9 +84,9 @@ def edit(user_id):
         else:
             update_user(user_repo, user_id, name)
             flash("Usuário atualizado com sucesso!")
-            return redirect(url_for("users.home"))
+            return redirect(url_for("home"))
 
-    return render_template("users/edit.html", user=u)
+    return render_template("users/edit.html", user=user)
 
 
 # ====== Deletar usuário ======
@@ -79,7 +94,7 @@ def edit(user_id):
 def delete(user_id):
     delete_user(user_repo, user_id)
     flash("Usuário deletado com sucesso!")
-    return redirect(url_for("users.home"))
+    return redirect(url_for("home"))
 
 
 # ====== Emprestar livro para usuário ======
@@ -91,7 +106,7 @@ def loan_book(user_id):
         flash("Livro emprestado com sucesso!")
     except ValueError as e:
         flash(str(e))
-    return redirect(url_for("users.user", user_id=user_id))
+    return redirect(url_for("home", user_id=user_id))
 
 
 # ====== Devolver livro ======
@@ -102,4 +117,4 @@ def return_book_route(user_id, book_id):
         flash("Livro devolvido com sucesso!")
     except ValueError as e:
         flash(str(e))
-    return redirect(url_for("users.user", user_id=user_id))
+    return redirect(url_for("home", user_id=user_id))

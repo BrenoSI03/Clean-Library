@@ -15,7 +15,7 @@ book_bp = Blueprint("books", __name__, url_prefix="/books")
 @book_bp.route("/", methods=["GET"])
 def home():
     books = list_books(book_repo)
-    return render_template("books/index.html", books=books)
+    return render_template("index.html", books=books)
 
 # ======================== Exibir livro ==========================
 @book_bp.route("/<int:book_id>", methods=["GET"])
@@ -23,7 +23,7 @@ def book(book_id):
     book = get_book(book_repo, book_id)
     if book is None:
         flash("Livro não encontrado")
-        return redirect(url_for("books.home"))
+        return redirect(url_for("home"))
     return render_template("books/book.html", book=book)
 
 # ======================== Criar livro ==========================
@@ -39,7 +39,7 @@ def create():
         else:
             create_book(book_repo, title, author, available)
             flash("Livro cadastrado com sucesso!")
-            return redirect(url_for("books.home"))
+            return redirect(url_for("home"))
 
     return render_template("books/create.html")
 
@@ -49,7 +49,7 @@ def edit(book_id):
     book = get_book(book_repo, book_id)
     if book is None:
         flash("Livro não encontrado")
-        return redirect(url_for("books.home"))
+        return redirect(url_for("home"))
 
     if request.method == "POST":
         title = request.form["title"]
@@ -61,7 +61,7 @@ def edit(book_id):
         else:
             update_book(book_repo, book_id, title, author, available)
             flash("Livro atualizado com sucesso!")
-            return redirect(url_for("books.home"))
+            return redirect(url_for("home"))
 
     return render_template("books/edit.html", book=book)
 
@@ -70,4 +70,4 @@ def edit(book_id):
 def delete(book_id):
     delete_book(book_repo, book_id)
     flash("Livro deletado com sucesso!")
-    return redirect(url_for("books.home"))
+    return redirect(url_for("home"))
