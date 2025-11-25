@@ -10,7 +10,6 @@
 <div class="btn-group" role="group">
     <a href="{{ url_for('books.create') }}" class="btn btn-success">Novo Livro</a>
     <a href="{{ url_for('users.create') }}" class="btn btn-primary">Novo Usuário</a>
-    <a href="{{ url_for('users.home') }}" class="btn btn-info">Emprestar Livro</a>
 </div>
 
 <hr>
@@ -62,12 +61,15 @@
         {% for loan in loans %}
             <li>
                 <strong>{{ loan['title'] }}</strong> — {{ loan['author'] }} (Emprestado por: {{ loan['user_name'] }})
-                <a href="{{ url_for('users.return_book_route', user_id=loan['user_id'], book_id=loan['book_id']) }}" class="btn btn-danger btn-sm">Devolver</a>
+                <form action="{{ url_for('loans.return_book_route', user_id=loan['user_id'], book_id=loan['book_id']) }}" method="post" style="display:inline;">
+                    <button type="submit">Devolver</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
 {% else %}
     <p>Não há livros emprestados no momento.</p>
 {% endif %}
+
 
 {% endblock %}

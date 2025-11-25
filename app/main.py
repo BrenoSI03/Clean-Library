@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from app.routes.book_routes import book_bp
 from app.routes.user_routes import user_bp
+from app.routes.loan_routes import loan_bp
 from infra.repositories.book_repository_sqlite import BookRepositorySQLite
 from infra.repositories.user_repository_sqlite import UserRepositorySQLite
 from infra.repositories.loan_repository_sqlite import LoanRepositorySQLite
@@ -37,6 +38,7 @@ def home():
 
 app.register_blueprint(book_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(loan_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
