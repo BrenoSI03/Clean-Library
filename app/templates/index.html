@@ -23,7 +23,7 @@
                 <a href="{{ url_for('books.edit', book_id=book['id']) }}">
                     #{{ book['id'] }} — <strong>{{ book['title'] }}</strong>
                 </a> — {{ book['author'] }}
-                <span class="badge {% if book['available'] %}badge-success{% else %}badge-danger{% endif %}">
+                <span class="badge {% if book['is_loaned'] %}badge-warning{% elif not book['available']%}badge-danger{% else %}badge-success{% endif %}">
                     {% if book['is_loaned'] %}
                         <span class="badge badge-warning">Emprestado</span>
 
