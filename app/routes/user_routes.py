@@ -4,9 +4,6 @@ from use_cases.get_user import get_user
 from use_cases.create_user import create_user
 from use_cases.update_user import update_user
 from use_cases.delete_user import delete_user
-
-from use_cases.borrow_book import borrow_book as borrow_book_uc
-from use_cases.return_book import return_book as return_book_uc
 from use_cases.list_user_loans import list_books_for_user
 
 from infra.repositories.user_repository_sqlite import UserRepositorySQLite
@@ -78,10 +75,7 @@ def edit(user_id):
         return redirect(url_for("home"))
     
     user_loans = loan_repo.get_loans_by_user(user_id)
-    # Depuração temporária
-    print("DEBUG USER LOANS:", user_loans)
 
-    # Garante que user_loans é uma lista
     if user_loans is None:
         user_loans = []
 
@@ -114,26 +108,3 @@ def delete(user_id):
     except ValueError as e:
         flash(str(e), "error")
     return redirect(url_for("home"))
-
-
-# ====== Emprestar livro para usuário ======
-@user_bp.route("/<int:user_id>/loans", methods=["POST"])
-def loan_book(user_id):
-    book_id = int(request.form["book_id"])
-    try:
-        borrow_book_uc(user_repo, loan_repo, user_id, book_id)
-        flash("Livro emprestado com sucesso!")
-    except ValueError as e:
-        flash(str(e))
-    return redirect(url_for("home", user_id=user_id))
-
-
-# ====== Devolver livro ======
-@user_bp.route("/<int:user_id>/returns/<int:book_id>", methods=["POST"])
-def return_book_route(user_id, book_id):
-    try:
-        return_book_uc(user_repo, loan_repo, user_id, book_id)
-        flash("Livro devolvido com sucesso!")
-    except ValueError as e:
-        flash(str(e))
-    return redirect(url_for("home", user_id=user_id))
