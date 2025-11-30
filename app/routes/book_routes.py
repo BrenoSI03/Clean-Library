@@ -5,9 +5,11 @@ from use_cases.create_book import create_book
 from use_cases.update_book import update_book
 from use_cases.delete_book import delete_book
 from infra.repositories.book_repository_sqlite import BookRepositorySQLite
+from infra.repositories.loan_repository_sqlite import LoanRepositorySQLite
 
 # Instanciando o repositório SQLite
 book_repo = BookRepositorySQLite()
+loan_repo = LoanRepositorySQLite()
 
 book_bp = Blueprint("books", __name__, url_prefix="/books")
 
@@ -59,15 +61,22 @@ def edit(book_id):
         if not title:
             flash("Título é obrigatório!")
         else:
-            update_book(book_repo, book_id, title, author, available)
-            flash("Livro atualizado com sucesso!")
-            return redirect(url_for("home"))
+            try:
+                update_book(book_repo, loan_repo, book_id, title, author, available)
+                flash("Livro atualizado com sucesso!")            
+            except ValueError as e:
+                flash(str(e), "error")
+                
+            return redirect(url_for("books.edit", book_id=book_id))
 
     return render_template("books/edit.html", book=book)
 
 # ======================== Deletar livro ==========================
 @book_bp.route("/<int:book_id>/delete", methods=["POST"])
 def delete(book_id):
-    delete_book(book_repo, book_id)
-    flash("Livro deletado com sucesso!")
+    try:
+        delete_book(book_repo, loan_repo, book_id)
+        flash("Livro deletado com sucesso!")
+    except ValueError as e:
+        flash(str(e), "error") 
     return redirect(url_for("home"))

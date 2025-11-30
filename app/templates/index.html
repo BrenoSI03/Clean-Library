@@ -21,10 +21,18 @@
         {% for book in books %}
             <li>
                 <a href="{{ url_for('books.edit', book_id=book['id']) }}">
-                    <strong>{{ book['title'] }}</strong>
+                    #{{ book['id'] }} — <strong>{{ book['title'] }}</strong>
                 </a> — {{ book['author'] }}
                 <span class="badge {% if book['available'] %}badge-success{% else %}badge-danger{% endif %}">
-                    {% if book['available'] %}Disponível{% else %}Emprestado{% endif %}
+                    {% if book['is_loaned'] %}
+                        <span class="badge badge-warning">Emprestado</span>
+
+                    {% elif not book['available'] %}
+                        <span class="badge badge-danger">Indisponível</span>
+
+                    {% else %}
+                        <span class="badge badge-success">Disponível</span>
+                    {% endif %}
                 </span>
             </li>
         {% endfor %}

@@ -22,3 +22,8 @@ class LoanRepository(ABC):
     def return_book(self, user_id: int, book_id: int) -> None:
         """Remove o empréstimo e marca o livro como disponível."""
         pass
+
+    @abstractmethod
+    def has_any_loan(self, book_id: int) -> bool:
+        """Verifica se há algum livro em empréstimo."""
+        pass

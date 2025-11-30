@@ -21,8 +21,11 @@ loan_repo = LoanRepositorySQLite()
 def home():
     books = list_books(book_repo)
     users = list_users(user_repo)
-    
+
     loans = []
+    all_loans = loan_repo.list_all()
+    loaned_book_ids = set([loan.book_id for loan in all_loans])
+
     for user in users:
         borrowed_books = list_books_for_user(loan_repo, user.id)
         for book in borrowed_books:
@@ -33,6 +36,9 @@ def home():
                 'user_name': user.name,
                 'user_id': user.id,
             })
+
+    for book in books:
+        book.is_loaned = book.id in loaned_book_ids
 
     return render_template('index.html', books=books, users=users, loans=loans)
 
