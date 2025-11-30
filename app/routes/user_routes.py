@@ -72,9 +72,20 @@ def create():
 @user_bp.route("/<int:user_id>/edit", methods=["GET", "POST"])
 def edit(user_id):
     user = get_user(user_repo, user_id)
+
     if user is None:
         flash("Usuário não encontrado")
         return redirect(url_for("home"))
+    
+    user_loans = loan_repo.get_loans_by_user(user_id)
+    # Depuração temporária
+    print("DEBUG USER LOANS:", user_loans)
+
+    # Garante que user_loans é uma lista
+    if user_loans is None:
+        user_loans = []
+
+    user.has_loans = len(user_loans) > 0
 
     if request.method == "POST":
         name = request.form["name"]
@@ -82,9 +93,14 @@ def edit(user_id):
         if not name:
             flash("Nome é obrigatório!")
         else:
-            update_user(user_repo, user_id, name)
-            flash("Usuário atualizado com sucesso!")
-            return redirect(url_for("home"))
+
+            try:
+                update_user(user_repo, user_id, name)
+                flash("Usuário atualizado com sucesso!")
+            except ValueError as e:
+                flash(str(e), "error")
+
+            return redirect(url_for("users.edit", user_id=user_id))
 
     return render_template("users/edit.html", user=user)
 
@@ -92,8 +108,11 @@ def edit(user_id):
 # ====== Deletar usuário ======
 @user_bp.route("/<int:user_id>/delete", methods=["POST"])
 def delete(user_id):
-    delete_user(user_repo, user_id)
-    flash("Usuário deletado com sucesso!")
+    try:
+        delete_user(user_repo, loan_repo, user_id)
+        flash("Usuário deletado com sucesso!")
+    except ValueError as e:
+        flash(str(e), "error")
     return redirect(url_for("home"))
 
 

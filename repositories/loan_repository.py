@@ -25,5 +25,10 @@ class LoanRepository(ABC):
 
     @abstractmethod
     def has_any_loan(self, book_id: int) -> bool:
-        """Verifica se há algum livro em empréstimo."""
+        """Verifica se o livro está emprestado para algum usuário."""
+        pass
+
+    @abstractmethod
+    def get_loans_by_user(self, user_id: int):
+        """Retorna todos os empréstimos de um usuário."""
         pass

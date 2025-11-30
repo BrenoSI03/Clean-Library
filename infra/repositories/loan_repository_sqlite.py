@@ -70,7 +70,6 @@ class LoanRepositorySQLite(LoanRepository):
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # Remove empréstimo (se existir) e marca como disponível
         cur.execute(
             "DELETE FROM loans WHERE user_id = ? AND book_id = ?",
             (user_id, book_id),
@@ -101,4 +100,14 @@ class LoanRepositorySQLite(LoanRepository):
         ).fetchone()
         conn.close()
         return row is not None
+
+    def get_loans_by_user(self, user_id: int):
+        conn = get_db_connection()
+        rows = conn.execute(
+            "SELECT * FROM loans WHERE user_id = ?",
+            (user_id,)
+        ).fetchall()
+        conn.close()
+        return rows
+
 

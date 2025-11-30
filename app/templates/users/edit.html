@@ -23,6 +23,19 @@
     <button type="submit" class="btn btn-primary mt-2">Salvar alterações</button>
 </form>
 
+{% if user.has_loans %}
+    <p class="text-danger">
+        Não é possível excluir este usuário, pois ele possui livros emprestados.
+    </p>
+{% else %}
+    <form action="{{ url_for('users.delete', user_id=user.id) }}" method="POST">
+        <button class="btn btn-danger"
+            onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+            Remover Usuário
+        </button>
+    </form>
+{% endif %}
+
 <br>
 <a href="{{ url_for('home') }}">← Voltar</a>
 

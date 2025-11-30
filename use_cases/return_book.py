@@ -11,5 +11,5 @@ def return_book(loan_repo: LoanRepository, book_repo: BookRepository, user_id: i
     book = book_repo.get_by_id(book_id)
     if book is None:
         raise ValueError("Livro não encontrado.")
-    
+    book.available = 1
     book_repo.update(book)
