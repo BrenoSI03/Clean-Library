@@ -25,7 +25,7 @@
 {% endif %}
 
 <h2>Pegar livro emprestado</h2>
-<form method="post" action="{{ url_for('users.loan_book', user_id=user['id']) }}">
+<form method="post" action="{{ url_for('loans.borrow_book_route', user_id=user['id']) }}">
   <label for="book_id">ID do livro:</label>
   <input type="number" id="book_id" name="book_id" min="1" required>
   <button type="submit">Emprestar</button>
