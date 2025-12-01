@@ -1,4 +1,3 @@
-# app/routes/loan_routes.py
 from flask import Blueprint, redirect, url_for, flash, request
 from use_cases.loan_book import loan_book
 from use_cases.return_book import return_book
@@ -27,7 +26,6 @@ def borrow_book_route(user_id: int):
     return redirect(url_for("users.user", user_id=user_id))
 
 
-# --------- DEVOLUÇÃO ---------
 @loan_bp.route("/<int:user_id>/returns/<int:book_id>", methods=["POST"])
 def return_book_route(user_id: int, book_id: int):
     try:
@@ -36,5 +34,4 @@ def return_book_route(user_id: int, book_id: int):
     except ValueError as e:
         flash(str(e), "error")
 
-    return redirect(url_for("users.user", user_id=user_id))
-    # ou: return redirect(url_for("home"))
+    return redirect(url_for("home"))

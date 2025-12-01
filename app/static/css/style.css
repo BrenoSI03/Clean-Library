@@ -144,7 +144,6 @@ a:focus {
 form,
 .form {
   background: #fff;
-  padding: 1.5rem 2rem;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   max-width: 400px;
@@ -152,6 +151,10 @@ form,
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+li form {
+  margin-left: 15px;
 }
 
 .form-group,
@@ -215,7 +218,7 @@ button,
   background: #2980b9;
   color: #fff;
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 6px;
   font-weight: 700;
   text-transform: uppercase;
