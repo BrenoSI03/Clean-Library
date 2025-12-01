@@ -1,4 +1,3 @@
-# app/main.py
 from flask import Flask, render_template
 from app.routes.book_routes import book_bp
 from app.routes.user_routes import user_bp
@@ -11,7 +10,6 @@ from use_cases.list_home_dashboard import list_home_dashboard
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.config["SECRET_KEY"] = "grXBaIz0Ag0a7XllLUI3maScR7mbnFZC"
 
-# Instanciando os repositórios
 book_repo = BookRepositorySQLite()
 user_repo = UserRepositorySQLite()
 loan_repo = LoanRepositorySQLite()
@@ -28,7 +26,6 @@ def home():
     )
 
 
-# Blueprints
 app.register_blueprint(book_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(loan_bp)

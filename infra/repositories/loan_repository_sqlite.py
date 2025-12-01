@@ -31,7 +31,6 @@ class LoanRepositorySQLite(LoanRepository):
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # Verifica se o livro existe e está disponível
         book_row = cur.execute(
             "SELECT available FROM books WHERE id = ?", (book_id,)
         ).fetchone()
@@ -44,7 +43,6 @@ class LoanRepositorySQLite(LoanRepository):
             conn.close()
             raise ValueError("Livro já está emprestado")
 
-        # Verifica se o usuário já tem esse livro emprestado
         existing = cur.execute(
             "SELECT 1 FROM loans WHERE user_id = ? AND book_id = ?",
             (user_id, book_id),
@@ -53,7 +51,6 @@ class LoanRepositorySQLite(LoanRepository):
             conn.close()
             raise ValueError("Esse usuário já possui esse livro emprestado")
 
-        # Cria empréstimo e marca como indisponível
         cur.execute(
             "INSERT INTO loans (book_id, user_id) VALUES (?, ?)",
             (book_id, user_id),
